@@ -15,7 +15,6 @@ import java.util.UUID;
 @Entity(name = "Conference")
 public class Conference {
 
-
     @Id
     @GeneratedValue
     private UUID id;
@@ -31,8 +30,5 @@ public class Conference {
 
     @OneToMany
     private List<Track> tracksList;
-
-
-
 
 }

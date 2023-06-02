@@ -13,8 +13,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "User")
-public class User {
+@Entity(name = "UserData")
+public class UserData {
 
     @Id
     @GeneratedValue
@@ -25,6 +25,5 @@ public class User {
 
     @Column(nullable = false)
     private String email;
-
 
 }

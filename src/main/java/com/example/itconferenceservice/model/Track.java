@@ -14,7 +14,6 @@ import java.util.UUID;
 @Entity(name = "Track")
 public class Track {
 
-
     @Id
     @GeneratedValue
     private UUID id;
@@ -24,5 +23,4 @@ public class Track {
 
     @OneToMany
     private List<Lecture> lecturesList;
-
 }
