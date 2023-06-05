@@ -23,6 +23,10 @@ public class UserDataService {
 
     public UUID createUser(UserDataPostDTO userDataPostDTO){
 
+        if(userDataRepository.existsByLogin(userDataPostDTO.getLogin())){
+            throw new IllegalArgumentException("Podany login jest już zajęty");
+        }
+
         UserData user = mapper.map(userDataPostDTO, UserData.class);
 
         userDataRepository.save(user);

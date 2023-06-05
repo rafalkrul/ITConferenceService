@@ -1,5 +1,6 @@
 package com.example.itconferenceservice.controller;
 
+import com.example.itconferenceservice.DTO.lecture.UserLectureDTO;
 import com.example.itconferenceservice.DTO.userData.UserDataPostDTO;
 import com.example.itconferenceservice.model.Lecture;
 import com.example.itconferenceservice.service.LectureService;
@@ -20,9 +21,9 @@ public class LectureController {
     private final LectureService lectureService;
 
     @PostMapping("/addUserToLecture")
-    public ResponseEntity<Void> addUserToLecture(@RequestBody UserDataPostDTO userDataPostDTO, @RequestParam UUID id){
+    public ResponseEntity<Void> addUserToLecture(@RequestBody UserLectureDTO userLectureDTO){
 
-        lectureService.addUserToLecture(userDataPostDTO,id);
+        lectureService.addUserToLecture(userLectureDTO.getUser_id(),userLectureDTO.getLecture_id());
         return ResponseEntity.ok().build();
 
     }
@@ -31,6 +32,12 @@ public class LectureController {
     public ResponseEntity<List<Lecture>> getLecturesByLogin(@RequestParam String login){
         List<Lecture> lectureList = lectureService.getLecturesByLogin(login);
         return new ResponseEntity<>(lectureList, HttpStatus.OK);
+    }
+
+    @PostMapping("deleteUserFromLecture")
+    public ResponseEntity<Void> deleteUserFromLecture(@RequestBody UserLectureDTO userLectureDTO){
+        lectureService.deleteUserDataFromLecture(userLectureDTO.getUser_id(),userLectureDTO.getLecture_id());
+        return ResponseEntity.ok().build();
     }
 
 

@@ -30,7 +30,7 @@ public class Lecture {
     @Column(nullable = false)
     private LocalTime end_time;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<UserData> userDataList;
 
 }
