@@ -9,4 +9,5 @@ public interface UserDataRepository extends JpaRepository<UserData, UUID> {
 
     boolean existsByLogin(String login);
 
+    boolean existsByEmail(String email);
 }

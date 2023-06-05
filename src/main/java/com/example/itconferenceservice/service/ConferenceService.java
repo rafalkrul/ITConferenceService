@@ -105,7 +105,6 @@ public class ConferenceService {
 
                 }
 
-
                 report.put(track.getName(), percentage/track.getLecturesList().size() * 100);
                 percentage = 0;
 

@@ -75,15 +75,13 @@ public class LectureService {
     }
 
     public void sendEmail(String login, String email){
-        String filePath = "EmailsSent.txt"; // Ścieżka do pliku
+        String filePath = "EmailsSent.txt";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-            writer.write(LocalTime.now() + " " + email + " " + "treść emailu"); // Zapisz słowa do pliku
-            writer.newLine(); // Nowa linia
-
-            System.out.println("Słowa zostały zapisane do pliku.");
+            writer.write(LocalTime.now() + " " + email + " " + "treść emailu");
+            writer.newLine();
         } catch (IOException e) {
-            System.out.println("Wystąpił błąd podczas zapisywania do pliku: " + e.getMessage());
+            e.getMessage();
         }
     }
 
