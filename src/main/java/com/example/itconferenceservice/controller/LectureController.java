@@ -3,6 +3,7 @@ package com.example.itconferenceservice.controller;
 import com.example.itconferenceservice.DTO.lecture.UserLectureDTO;
 import com.example.itconferenceservice.DTO.userData.UserDataPostDTO;
 import com.example.itconferenceservice.model.Lecture;
+import com.example.itconferenceservice.model.UserData;
 import com.example.itconferenceservice.service.LectureService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +30,8 @@ public class LectureController {
     }
 
     @GetMapping("/UserLectures")
-    public ResponseEntity<List<Lecture>> getLecturesByLogin(@RequestParam String login){
-        List<Lecture> lectureList = lectureService.getLecturesByLogin(login);
+    public ResponseEntity<List<UUID>> getLecturesByLogin(@RequestParam String login){
+        List<UUID> lectureList = lectureService.getLecturesByLogin(login);
         return new ResponseEntity<>(lectureList, HttpStatus.OK);
     }
 
@@ -40,6 +41,10 @@ public class LectureController {
         return ResponseEntity.ok().build();
     }
 
-
+    @GetMapping("/getUsersFromLecture")
+    public ResponseEntity<List<String>> getUsersFromLecture(@RequestParam UUID id){
+        List<String> usersFromLecture = lectureService.getUsersFromLecture(id);
+        return new ResponseEntity<>(usersFromLecture, HttpStatus.OK);
+    }
 
 }

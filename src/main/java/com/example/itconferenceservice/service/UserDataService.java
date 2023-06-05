@@ -50,14 +50,16 @@ public class UserDataService {
     }
 
 
-    public boolean validateEmail(String email){
+    public void validateEmail(String email){
 
         final String EMAIL_PATTERN = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
         if(userDataRepository.existsByEmail(email)){
 
-            throw new IllegalArgumentException("Given email is taken");
+            throw new IllegalArgumentException("Podany email jest już w użyciu");
         }
-        return email.matches(EMAIL_PATTERN);
+        if (!email.matches(EMAIL_PATTERN)) {
+            throw new IllegalArgumentException("Podany email jest nie właściwy");
+        }
     }
 
     public void changeEmail(UUID id, String email){
@@ -65,6 +67,7 @@ public class UserDataService {
         UserData userData = mapper.map(userDataRepository.findById(id), UserData.class);
 
         if(!email.isEmpty()){
+            validateEmail(email);
             userData.setEmail(email);
         }
         userDataRepository.save(userData);

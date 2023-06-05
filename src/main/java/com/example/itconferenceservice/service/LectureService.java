@@ -34,7 +34,7 @@ public class LectureService {
 
         UserData userData = mapper.map(userDataRepository.findById(user_id), UserData.class);
 
-        List<Lecture> lectureList = getLecturesByLogin(userData.getLogin())
+        List<Lecture> lectureList = lectureRepository.findByUserDataList_Login(userData.getLogin())
                 .stream()
                 .filter(l -> l.getStart_time().equals(lecture.getStart_time()))
                 .collect(Collectors.toList());
@@ -48,15 +48,15 @@ public class LectureService {
         }
 
         lecture.getUserDataList().add(userData);
-        sendEmail(userData.getLogin(), userData.getEmail());
+        sendEmail(userData.getEmail());
         lectureRepository.save(lecture);
     }
 
 
-    public List<Lecture> getLecturesByLogin(String login){
+    public List<UUID> getLecturesByLogin(String login){
         return lectureRepository.findByUserDataList_Login(login)
                 .stream()
-                .map(lecture -> mapper.map(lecture,Lecture.class))
+                .map(Lecture::getId)
                 .collect(Collectors.toList());
 
     }
@@ -74,8 +74,8 @@ public class LectureService {
         lectureRepository.save(lecture);
     }
 
-    public void sendEmail(String login, String email){
-        String filePath = "EmailsSent.txt";
+    public void sendEmail(String email){
+        String filePath = "powiadomienia.txt";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.write(LocalTime.now() + " " + email + " " + "treść emailu");
@@ -84,6 +84,16 @@ public class LectureService {
             e.getMessage();
         }
     }
+
+    public List<String> getUsersFromLecture(UUID id) {
+        Lecture lecture = mapper.map(lectureRepository.findById(id), Lecture.class);
+
+        return lecture.getUserDataList()
+                .stream()
+                .map(UserData::getEmail)
+                .collect(Collectors.toList());
+    }
+
 
 
 }
