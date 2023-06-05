@@ -2,12 +2,10 @@ package com.example.itconferenceservice.model;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalTime;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -31,5 +29,8 @@ public class Lecture {
 
     @Column(nullable = false)
     private LocalTime end_time;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserData> userDataList;
 
 }
