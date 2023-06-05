@@ -2,7 +2,6 @@ package com.example.itconferenceservice.service;
 
 import com.example.itconferenceservice.DTO.conference.ConferenceGetDTO;
 import com.example.itconferenceservice.DTO.conference.ConferencePostDTO;
-import com.example.itconferenceservice.DTO.track.TrackPostDTO;
 import com.example.itconferenceservice.model.Conference;
 import com.example.itconferenceservice.model.Lecture;
 import com.example.itconferenceservice.model.Track;
@@ -10,14 +9,10 @@ import com.example.itconferenceservice.repository.ConferenceRepository;
 import com.example.itconferenceservice.repository.LectureRepository;
 import com.example.itconferenceservice.repository.TrackRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.var;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,13 +31,6 @@ public class ConferenceService {
     public UUID createConference(ConferencePostDTO conferencePostDTO){
 
         Conference conference = mapper.map(conferencePostDTO, Conference.class);
-
-//        var tracks =conference.getTracksList()
-//                .stream()
-//                .map(track -> mapper.map(track, Track.class))
-//                .collect(Collectors.toList());
-
-//        conference.setTracksList(tracks);
 
         conference.setTracksList(new ArrayList<>());
         conferenceRepository.save(conference);
@@ -83,8 +71,45 @@ public class ConferenceService {
     }
 
 
+    public Map<String, Double> generateLecturesReport(){
+
+        List<Lecture> lectureList = lectureRepository.findAll();
+
+        Map<String, Double> report = new HashMap<>();
+
+        for(Lecture lecture : lectureList){
+
+                double percentage = (double) lecture.getUserDataList().size() / 5;
+
+                report.put(lecture.getTitle(),percentage * 100);
+        }
+
+        return report;
+    }
+
+    public Map<String, Double> generateTracksReport() {
+
+        List<Track> trackList = trackRepository.findAll();
+
+        Map<String, Double> report = new HashMap<>();
+
+        double percentage = 0;
+
+        for (Track track : trackList) {
+
+                List<Lecture> lectureList = track.getLecturesList();
+
+                for (Lecture lecture : lectureList) {
+
+                         percentage += (double) lecture.getUserDataList().size() / 5;
+
+                }
 
 
+                report.put(track.getName(), percentage/track.getLecturesList().size() * 100);
+                percentage = 0;
 
-
+        }
+        return report;
+    }
 }

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -36,6 +37,18 @@ public class ConferenceController {
     public ResponseEntity<Void> addTracksToConference(@RequestBody ConferencePostDTO conferencePostDTO){
         conferenceService.addTracksToConference(conferencePostDTO);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("lectureReport")
+    public ResponseEntity<Map<String, Double>> generateLecturesReport(){
+        Map<String,Double> report = conferenceService.generateLecturesReport();
+        return new ResponseEntity<>(report,HttpStatus.OK);
+    }
+
+    @GetMapping("trackReport")
+    public ResponseEntity<Map<String, Double>> generateTracksReport(){
+        Map<String,Double> report = conferenceService.generateTracksReport();
+        return new ResponseEntity<>(report,HttpStatus.OK);
     }
 
 
