@@ -1,11 +1,38 @@
 package com.example.itconferenceservice.controller;
 
+import com.example.itconferenceservice.DTO.userData.UserDataPostDTO;
+import com.example.itconferenceservice.model.Lecture;
+import com.example.itconferenceservice.service.LectureService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class LectureController {
+
+    private final LectureService lectureService;
+
+    @PostMapping("/addUserToLecture")
+    public ResponseEntity<Void> addUserToLecture(@RequestBody UserDataPostDTO userDataPostDTO, @RequestParam UUID id){
+
+        lectureService.addUserToLecture(userDataPostDTO,id);
+        return ResponseEntity.ok().build();
+
+    }
+
+    @GetMapping("/UserLectures")
+    public ResponseEntity<List<Lecture>> getLecturesByLogin(@RequestParam String login){
+        List<Lecture> lectureList = lectureService.getLecturesByLogin(login);
+        return new ResponseEntity<>(lectureList, HttpStatus.OK);
+    }
+
+
+
 }

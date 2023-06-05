@@ -30,11 +30,9 @@ public class UserDataService {
         return user.getId();
     }
 
-
-
-
-
-
+    public void deleteUserById(UUID id){
+        userDataRepository.deleteById(id);
+    }
 
 
 }
