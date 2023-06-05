@@ -1,0 +1,108 @@
+POST localhost:8080/api/user
+
+{
+  "login": "rafal7",
+  "email": "test1341123@o2.pl"
+}
+
+POST localhost:8080/api/conference
+
+{
+  "name": "IT Conference 2023",
+  "starting_date": "2023-06-01T10:00:00",
+  "ending_date": "2023-06-01T15:45:00"
+}
+
+POST localhost:8080/api/addTracks
+
+{
+    "id": "",
+    "tracksList": [
+        {
+            "name": "Track A",
+            "lecturesList": [
+                {
+                    "title": "Introduction to Spring Boot1",
+                    "start_time": "10:00:00",
+                    "end_time": "11:45:00"
+                },
+                {
+                    "title": "Introduction to Spring Boot2",
+                    "start_time": "12:00:00",
+                    "end_time": "13:45:00"
+                },
+                {
+                    "title": "Introduction to Spring Boot3",
+                    "start_time": "14:00:00",
+                    "end_time": "15:45:00"
+                }
+            ]
+        },
+        {
+            "name": "Track B",
+            "lecturesList": [
+                {
+                    "title": "Introduction to Spring Boot4",
+                    "start_time": "10:00:00",
+                    "end_time": "11:45:00"
+                },
+                {
+                    "title": "Introduction to Spring Boot5",
+                    "start_time": "12:00:00",
+                    "end_time": "13:45:00"
+                },
+                {
+                    "title": "Introduction to Spring Boot16",
+                    "start_time": "14:00:00",
+                    "end_time": "15:45:00"
+                }
+            ]
+        },
+        {
+            "name": "Track C",
+            "lecturesList": [
+                {
+                    "title": "Introduction to Spring Boot7",
+                    "start_time": "10:00:00",
+                    "end_time": "11:45:00"
+                },
+                {
+                    "title": "Introduction to Spring Boot8",
+                    "start_time": "12:00:00",
+                    "end_time": "13:45:00"
+                },
+                {
+                    "title": "Introduction to Spring Boot9",
+                    "start_time": "14:00:00",
+                    "end_time": "15:45:00"
+                }
+            ]
+        }
+    ]
+}
+
+GET localhost:8080/api/conference/id
+
+GET localhost:8080/api/UserLectures?login=
+
+POST localhost:8080/api/addUserToLecture
+
+{
+    "user_id": "",
+    "lecture_id": ""
+}
+
+POST localhost:8080/api/deleteUserFromLecture
+
+{
+    "user_id": "",
+    "lecture_id": ""
+}
+
+GET localhost:8080/api/getAllUsers
+
+
+GET localhost:8080/api/getUsersFromLecture?id=
+
+
+GET localhost:8080/api/lectureReport
