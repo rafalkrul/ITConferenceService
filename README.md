@@ -1,7 +1,7 @@
 # ITConferenceService
 
 
-## Technologie
+## Technologies
 
 - Java 8
 - Spring Framework 2.7.12
@@ -9,11 +9,11 @@
 
 
 
-## Jak Uruchomić
-1. Zainstalować środowisko Javy oraz Dockera.
-2. Pobrać repozytorium
-    >https://github.com/rafalkrul/ITConferenceService
-3. Stworzyć plik konfiguracyjny src/main/resources/application.properties
+## How to Run
+1. Install Java and Docker.
+2. Clone the repository:
+   > https://github.com/rafalkrul/ITConferenceService
+3. Create a configuration file at src/main/resources/application.properties with the following content:
   ```
 spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
 spring.datasource.driver-class-name=org.postgresql.Driver
@@ -24,11 +24,14 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 spring.jooq.sql-dialect=org.hibernate.dialect.MySQL8Dialect
 spring.jpa.hibernate.ddl-auto=update
 ```
-4. cd ITConferenceService\docker && docker compose up -d
-5. Otworzyć projekt z katalogu ITConferenceService w Intelij i uruchomić serwer
 
+4. Navigate to ITConferenceService/docker directory and run the following command:
 
-## Wykorzystywanie
+    ``` docker-compose up -d ```
 
-    Do projektu został dołączony plik `Postman.txt` zawierający przykładowe komendy
-    wraz z DTO
+5. Open the project in IntelliJ from the ITConferenceService directory and run the server.
+
+## Usage
+
+The project includes a `Postman.txt` file that contains sample commands along with DTO (Data Transfer Object) examples.
+
